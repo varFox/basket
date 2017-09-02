@@ -1,0 +1,10 @@
+#basket_wrapper, .good {
+	padding: 8px;
+	border: 1px solid black;
+	border-radius: 10px;
+}
+.good {
+	display: inline-block;
+	margin: 10px;
+	text-align: center;
+}

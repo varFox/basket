@@ -1,0 +1,64 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>
+  <link rel="stylesheet" href="style.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+</head>
+<body>
+	<div id="basket_wrapper">
+
+  </div>
+  <div class="good">
+    <p>Штанишки</p>
+    <p>Цена: <span class="price">200</span></p>
+    <button class="buy" id="good_123">Купить</button>
+  </div>
+  <div class="good">
+    <p>Маечка</p>
+    <p>Цена: <span class="price">100</span></p>
+    <button class="buy" id="good_124">Купить</button>
+  </div>
+  <div class="good">
+    <p>Трусики</p>
+    <p>Цена: <span class="price">50</span></p>
+    <button class="buy" id="good_125">Купить</button>
+  </div>
+  <div class="good">
+    <p>Чёрный плащ</p>
+    <p>Цена: <span class="price">500</span></p>
+    <button class="buy" id="good_126">Купить</button>
+  </div>
+  <script src="js/basket.js"></script>
+
+  <script>
+    // Создание новой корзины
+    var basket = new Basket();
+    basket.render('#basket_wrapper');
+
+    // Обработка нажатий на кнопку "Купить"
+    $(document).on('click', '.buy', function(event) {
+      // Получение id товара из атрибута кнопки
+      var id = parseInt($(this).attr('id').split('_')[1]);
+      var quantity = 1;
+      // Получение цены товара
+      var price = parseInt($(this).parent().find('.price').text());
+
+      basket.add(id, quantity, price);
+    })
+    $('.good').draggable({
+      revert: true,
+      stop: DragStop
+    });
+    $('#basket_wrapper').droppable();
+    function DragStop(event) {
+      var id = parseInt($(this).children(".buy").attr('id').split('_')[1]);
+      var quantity = 1;
+      var price = parseInt($(this).find('.price').text());
+      basket.add(id, quantity, price);      
+    }
+  </script>
+</body>
+</html>
